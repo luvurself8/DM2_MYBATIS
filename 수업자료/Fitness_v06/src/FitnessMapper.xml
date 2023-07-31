@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- query 문이 저장 되어있음 -->
+<!-- namespace란에는 interface이 전체 이름을 기재 -->
+<mapper namespace="net.kdigital.fitness.dao.FitnessMapper">
+	<insert id="insert" parameterType="net.kdigital.fitness.vo.Fitness">
+		insert into fitness
+		(seqno, userid, username, height, weight)
+		values
+		(fitness_seq.NEXTVAL,#{id},#{name},#{height},#{weight})
+	</insert>
+	<select id="selectOne"  parameterType="String"  resultType="Fitness">
+		select userid as id, username as name, height, weight
+		from fitness
+		where userid = #{id}
+	</select>
+	<select id="selectAll"  resultType="Fitness">
+		select userid as id, username as name, height, weight 
+		from fitness
+	</select>
+	
+	<update id="update" parameterType="Fitness">
+		update fitness
+		set 
+		height = #{height},
+		weight = #{weight}
+		where userid = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="String"> 
+		delete fitness
+		where userid = #{id}
+	</delete>
+</mapper>
