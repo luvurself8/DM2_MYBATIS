@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespace란에는 interface의 전체 이름을 기재 -->  
+
+<mapper namespace="dao.UserDAO">
+	<insert id="insertUser" parameterType="vo.User">
+		INSERT INTO USERINFO
+		VALUES
+		(#{userid}, #{username}, #{gender}, #{phone}, #{birthday})
+	</insert>
+
+	<!-- 한 명의 회원정보 조회 -->
+	<select id="selectOne" parameterType="string" resultType="vo.User">
+		SELECT 
+			USERID, USERNAME, GENDER, PHONE, 
+			to_char(BIRTHDAY, 'YYYY-MM-DD') AS BIRTHDAY
+		FROM 
+			userinfo
+		WHERE userid = #{userid} 
+	</select>
+	
+	<!-- 여러 명의 회원 정보 조회 -->
+	<select id="selectAll" resultType="vo.User">
+		SELECT 
+			USERID, USERNAME, GENDER, PHONE, 
+			to_char(BIRTHDAY, 'YYYY-MM-DD') AS BIRTHDAY
+		FROM 
+			userinfo
+		ORDER BY username
+	</select>	
+
+	
+	
+	
+	
+	
+	
+</mapper>
